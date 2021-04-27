@@ -10,4 +10,4 @@ Você pode encontrar o documento do tutorial neste repositório, clicando aqui:
 
 Ou online através do link:
 
-- https://gcet231.github.io/tutl4-fpga-flow/
+- https://gcet231.github.io/tut4-fpga-flow/
