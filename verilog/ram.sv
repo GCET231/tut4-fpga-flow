@@ -5,7 +5,7 @@ module single_port_ram
 	input [(ADDR_WIDTH-1):0] rdaddr,
 	input [(ADDR_WIDTH-1):0] wraddr,
 	input we, clk,
-	output [(DATA_WIDTH-1):0] q
+	output reg [(DATA_WIDTH-1):0] q
 );
 
 	// Declare the RAM variable
@@ -21,9 +21,8 @@ module single_port_ram
 		begin
 			ram[wraddr] <= data;
 		end
-		rdaddr_reg <= rdaddr;	
-	end
-
-	assign q = ram[rdaddr_reg];
+		rdaddr_reg <= rdaddr;
+		q <= ram[rdaddr_reg];
+	end	
 
 endmodule
