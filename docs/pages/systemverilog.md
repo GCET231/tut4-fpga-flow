@@ -8,7 +8,7 @@ Para criar um novo arquivo, clicamos no menu **File** e então **New File...**. 
 
 Vamos criar um novo arquivo no formato SystemVerilog HDL. Para isso, nós devemos selecionar a opção **SystemVerilog HDL File** na caixa de diálogo de criação de novo arquivo, e em seguida clicar em **OK**. Em seguida, salve o novo arquivo clicando no menu **File** e em seguida **Save as...** Certifique-se de escolher o diretório `verilog` como destino e salve o arquivo com o nome `pipemult.sv`, se o nome já não tiver sido preenchido para você. Esse será usado para especificar nosso componente _top-level_. Falaremos sobre ele logo mais adiante neste tutorial. Nós criaremos todo o nosso circuito usando o editor de código incluído no Quartus Prime. Com esse editor você pode tirar proveito de todos os recursos das linguagens HDL.
 
-![Novo arquivo SystemVerilog HDL (/Users/joaocarlos/Code/GCET231/tut4-fpga-flow/docs/assets/fig/create_new_file.gif)](assets/fig/create_new_file.gif)
+![Novo arquivo SystemVerilog HDL (/Users/joaocarlos/Code/GCET231/tut4-fpga-flow/docs/assets/fig/create_new_file.gif)](../assets/fig/create_new_file.gif)
 
 Se preferir, a medida em que for se ambientando com a ferramenta, poderá utilizar seu editor de texto preferido. Nesse caso, usar o Quartus Prime ainda será necessário para realizar a compilação, mapeamento e programação dos dispositivos FPGA.
 
@@ -16,7 +16,7 @@ Se preferir, a medida em que for se ambientando com a ferramenta, poderá utiliz
 
 O diagrama abaixo ilustra a estrutura do circuito que iremos desenvolver ao longo desse tutorial. O nosso circuito possui duas entradas de dados de 8 bits `dataa` e `datab`, as quais serão operadas sobre um multiplicador simples para números sem sinal. O circuito possui ainda duas entradas de endereço de memória. A entrada `wraddr` é usada para escrita, enquanto `rdaddr` é utilizada como endereço de leitura da memória. Finalmente, nosso circuito possui ainda um sinal de habilitação da escrita na memória, nomeado como `wren`.
 
-![Diagrama de blocos](/Users/joaocarlos/Code/GCET231/tut4-fpga-flow/docs/assets/fig/block_diagram.png)
+![Diagrama de blocos](../assets/fig/block_diagram.png)
 
 Para implementar a funcionalidade do nosso circuito nós precisamos de um multiplicador $8\times8$ e uma memória RAM $32\times16$ (32 posições de 16 bits). A saída da memória é ligada a um registrador de 16 bits, conectado ao sinal `q`, única saída do circuito proposto.
 
@@ -24,31 +24,31 @@ Para implementar a funcionalidade do nosso circuito nós precisamos de um multip
 
 Você também pode introduzir blocos de IP em seus projetos. Um bloco IP é uma estrutura pré-definida que pode ser personalizada dentro do Quartus Prime. Um IP pode representar qualquer componente, desde elementos de lógica simples até blocos mais complicados, como controladores DDR, memórias ou PLL. A maior parte dos IPs disponíveis no catálogo do Quartus Prime são gratuitos. Vamos criar um multiplicador personalizado a partir do catálogo de IP do Quartus Prime. Se a janela **IP catalog** não estiver visível, selecione-a no menu **Tools**, ou no menu **View**.
 
-![Visualizar catálogo de IPs (/Users/joaocarlos/Code/GCET231/tut4-fpga-flow/docs/assets/fig/open_ip_catalog.gif)](assets/fig/open_ip_catalog.gif)
+![Visualizar catálogo de IPs](../assets/fig/open_ip_catalog.gif)
 
 Na janela **IP Catalog**, localizada à direita da janala principal do Quartus Prime, na opção **Library**, procure por **Basic Functions** `→` **Arithmetic** e selecione o IP **LPM_MULT** clicando duas vezes no nome. Na caixa de diálogo **Save IP Variation**, exibida em seguida, especifique o nome do arquivo de variação IP como `mult`, adicionando `mult` ao final do caminho do arquivo, o qual deve corresponder ao diretório do projeto. Selecione a opção Verilog em **IP variarion file type** e pressione **OK**.
 
-![Criando novo IP LPM_MULT (/Users/joaocarlos/Code/GCET231/tut4-fpga-flow/docs/assets/fig/create_lpm_mult.gif).](assets/fig/create_lpm_mult.gif)
+![Criando novo IP LPM_MULT.](../assets/fig/create_lpm_mult.gif)
 
 A caixa de diálogo de parâmetros MegaWizard para o multiplicador LPM deve abrir. Na primeira parte, defina a largura dos barramentos `dataa` e `datab` da memória para oito bits e mantenha os padrões para todas as outras configurações. Em seguida, clique em **Next**.
 
-![Parameter Settings LPM MULT (/Users/joaocarlos/Code/GCET231/tut4-fpga-flow/docs/assets/fig/lpm_parameter.png).](assets/fig/lpm_parameter.png)
+![Parameter Settings LPM MULT.](../assets/fig/lpm_parameter.png)
 
 Na próxima página, note que há algumas opções de configuração importantes. A primeira delas permite que definamos um valor padrão para a entrada `datab`. Em seguida, é possível escolher entre multiplicações com números sem sinal (_unsigned_) ou com sinal (_signed_). Por último, encontramos a opção para usar elementos lógicos ou multiplicadores dedicados para implementar o nosso circuito. Vamos usar as configurações padrão do Quartus Prime. Deixe as caixas de seleção com os valores definidos e clique em **Next**.
 
-![Parameter Settings LPM MULT (/Users/joaocarlos/Code/GCET231/tut4-fpga-flow/docs/assets/fig/lpm_parameter_2.gif).](assets/fig/lpm_parameter_2.gif)
+![Parameter Settings LPM MULT.](../assets/fig/lpm_parameter_2.gif)
 
 Na próxima página, selecione a opção **Yes, I want output latency** e especifique 2 (dois) na caixa de texto **clock cycles**. Clique em **Next** para continuar. Essa configuração fará com que o Quartus Prime explore o paralelismo para acelerar a execução da operação de multiplicação. Especificamente, estamos usando os dois registradores presentes nos circuitos multiplicadores presentes dentro do dispositivo FPGA.
 
-![Parameter Settings LPM MULT (/Users/joaocarlos/Code/GCET231/tut4-fpga-flow/docs/assets/fig/lpm_parameter_3.gif).](assets/fig/lpm_parameter_3.gif)
+![Parameter Settings LPM MULT.](../assets/fig/lpm_parameter_3.gif)
 
 Novamente, nas configurações de EDA, clique em **Next** para continuar. Na página de resumo -- última página do MegaWizard -- certifique-se de marcar a caixa de seleção correspondente ao item `mult_inst.v`. Isso fará com que o assistente produza, entre suas saídas, um arquivo de modelo de instanciação Verilog que será útil logo mais. Clique em **Finish** para criar o seu multiplicador. Se o assistente perguntar se você deseja adicionar o arquivo IP ao projeto, clique em **Yes**.
 
-![Parameter Settings LPM MULT (/Users/joaocarlos/Code/GCET231/tut4-fpga-flow/docs/assets/fig/lpm_parameter_4.gif).](assets/fig/lpm_parameter_4.gif)
+![Parameter Settings LPM MULT.](../assets/fig/lpm_parameter_4.gif)
 
 Agora, se você olhar para a guia arquivos no navegador do projeto, você deve ver um novo arquivo chamado `mult.qip` na lista de arquivos do **Project Navitator**. Clique no símbolo `+` ao lado do nome do arquivo e veja o que surge.
 
-![Exibindo novo arquivo mult.qip (/Users/joaocarlos/Code/GCET231/tut4-fpga-flow/docs/assets/fig/show_mult_quip.gif).](assets/fig/show_mult_quip.gif)
+![Exibindo novo arquivo mult.qip.](../assets/fig/show_mult_quip.gif)
 
 Abra o arquivo `mult.v`e note como sua estrutura é definida. Um bloco de IP é uma estrutura pré-definida presentes nas bibliotecas de síntese do dispositivo FPGA. Em geral, essas estruturas são especificadas na forma de componentes do dispositivo FPGA. Isso quer dizer que você não pode visualizar sua descrição comportamental.
 
@@ -168,7 +168,7 @@ module d_ff (
 endmodule
 ```
 
-![Criando arquivo dff.v (/Users/joaocarlos/Code/GCET231/tut4-fpga-flow/docs/assets/fig/create_dff.gif)](assets/fig/create_dff.gif)
+![Criando arquivo dff.v.](../assets/fig/create_dff.gif)
 
 Vamos concluir a especificação HDL do nosso circuito instanciando o registrador e conectando-o à saída da memória RAM. Para isso, primeiro precisamos declarar o sinal que representa a ligação entre as instâncias dos módulos `ram` e `d_ff`. Para este propósito criaremos o sinal `q_sig`.
 
@@ -235,7 +235,7 @@ endmodule
 
 Para garantir que não há erros de sintaxe ou semântica no seu código, o Quartus Prime possui uma ferramenta de análise específicamente elaborada com esse propósito. Para isso, clique no menu **Processing** e, em seguida, **Analyze Current File**. Faça isso para todos os arquivos que você criou, especialmente para o `pipemult.sv`.
 
-![Analise de sintaxe e semântica do código (/Users/joaocarlos/Code/GCET231/tut4-fpga-flow/docs/assets/fig/analyze_code.gif).](assets/fig/analyze_code.gif)
+![Analise de sintaxe e semântica do código.](../assets/fig/analyze_code.gif)
 
 Se tudo correr como esperado, você deve visualizar um conjunto de mensagens semelhante às que são apresentadas a seguir.
 
