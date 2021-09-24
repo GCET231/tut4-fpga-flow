@@ -1,4 +1,4 @@
-## Introdução
+# Introdução
 
 Nesse tutorial, você irá aprender a criar um projeto no **Intel Quartus Prime**, passando por todas as etapas do fluxo de projeto FPGA. O tutorial irá apresentar as ferramentas de projeto, mapeamento, síntese e prototipagem. Este tutorial leva em consideração que você já possui o Intel Quartus Prime instalado em seu ambiente de desenvolvimento e já completou os tutoriais referentes ao Git e Verilog.
 
@@ -26,4 +26,5 @@ Se preferir, você pode fazer o download dos arquivos clicando em **Code** e em 
 
 ![Baixando o ZIP do repositório](https://i.loli.net/2021/04/24/qaBs7xjXLlVmJUF.gif)
 
-## 
+| [Início](../index.md) | [Assistente de Criação de Projetos](../pages/megawizard.md) |
+| :-------------------- | ----------------------------------------------------------: |
