@@ -1,4 +1,4 @@
-## Compilando o Projeto
+# Compilando o Projeto
 
 Nessa parte do tutorial, você compilará o seu projeto FPGA utilizando o Quartus Prime. O Quartus Prime possui um conjunto de módulos de software responsáveis por realizar a síntese, mapeamento, montagem e análise do circuito, gerar arquivos de saída de programação. As etapas de compilação podem ser executadas de uma só vez ou por partes independentes. Os resultados de síntese, por sua vez podem ser otimizados por meio das configurações do compilador. Além disso, o Quartus Prime também gera relatórios para análise.
 

@@ -250,5 +250,5 @@ Info: Quartus Prime Analyze Current File was successful. 0 errors, 1 warning
 
 Se algo der errado, você verá uma mensagem de erro destacada na cor vermelha. Se esse não foi o seu caso, parabéns, você concluiu a etapa de entrada de projeto do nosso experimento e poderá seguir adiante. Caso contrário, verifique qual foi o erro encontrado e tente solucioná-lo. Se necessário retorne algumas etapas do tutorial.
 
-| [Explorando o Projeto Recém Criado](../pages/project.md) | [Expandindo o Projeto usando SystemVerilog](systemverilog.md) |
-| :------------------------------------------------------- | -----------------------------------------------------------: |
+| [Explorando o Projeto Recém Criado](../pages/project.md) | [Compilando o Projeto](compile.md) |
+| :------------------------------------------------------- | ---------------------------------: |
