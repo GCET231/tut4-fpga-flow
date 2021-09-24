@@ -6,7 +6,7 @@
 
 **Sumário**
 
-- [Introdução][docs/pages/intro.md]
+- [Introdução](pages/intro.md)
 - Assistente de Criação de Projetos
 - Explorando o Projeto Recém Criado
 - Expandindo o Projeto Usando SystemVerilog
